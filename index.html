@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#264638" name="theme-color"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="GridMap" name="apple-mobile-web-app-title"/>
+<meta content="telephone=no" name="format-detection"/>
+<title>GridMap</title>
+<script>
+    (function () {
+      window.__MYMATE_STARTUP_FIX = '2.5.85-gridmap';
+      try {
+        var cleanKey = 'gridmap-cache-clean-v2-5-85';
+        var alreadyCleaned = false;
+        try { alreadyCleaned = localStorage.getItem(cleanKey) === '1'; } catch (e) {}
+        if (!alreadyCleaned && 'caches' in window) {
+          caches.keys().then(function (keys) {
+            return Promise.all(keys.filter(function (key) { return /^gridmap-/i.test(key) || /^pathfinder-/i.test(key) || /^search-assets-/i.test(key) || /^lookup-/i.test(key) || /^mymate-/i.test(key) || /^dogbones-/i.test(key); }).map(function (key) { return caches.delete(key); }));
+          }).then(function () { try { localStorage.setItem(cleanKey, '1'); } catch (e) {} }).catch(function () {});
+        }
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function (regs) {
+            regs.forEach(function (reg) {
+              if (reg && reg.update) reg.update().catch(function () {});
+            });
+          }).catch(function () {});
+        }
+      } catch (e) {}
+    }());
+  </script>
+<link href="manifest.webmanifest?v=v2-5-85-gridmap" rel="manifest"/>
+<link as="fetch" crossorigin="anonymous" href="version.json?v=v2-5-85-gridmap" rel="preload" type="application/json"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<link href="styles.css?v=v2-5-85-gridmap" rel="stylesheet"/>
+</head>
+<body>
+<div aria-live="polite" class="splash-screen opening" id="splashScreen" role="status">
+<div class="splash-wrap basic-splash-wrap plain-splash-wrap"><div class="plain-splash-title">GridMap</div></div><div class="splash-text">Loading...</div>
+</div>
+<div aria-labelledby="warningConfirmTitle" aria-modal="true" class="warning-confirm hidden" id="warningConfirm" role="dialog">
+<div class="warning-confirm-card">
+<div class="warning-badge">Public app, controlled use</div>
+<h2 id="warningConfirmTitle">Important use notice</h2>
+<p class="warning-lead">GridMap is an unofficial reference tool. The app shell/code may be publicly hosted, but any imported data, saved data, exported files, screenshots, search results, copied information, or work use must only be handled by current authorised users with access to approved systems needed to verify it.</p>
+<div class="warning-section">
+<h3>Use and access</h3>
+<p>Only use GridMap for legitimate work reference while you remain part of the current authorised work group and can verify all information in approved systems. Do not send the app link, imported data, exported files, screenshots, search results, copied files, or use instructions to anyone outside that authorised group.</p>
+</div>
+<div class="warning-section">
+<h3>If access changes</h3>
+<p>If you no longer need GridMap, leave the work group, change roles, lose access to approved systems, are asked to stop using it, or are no longer authorised to use it, you agree to delete all imported/exported app data, clear saved app data, and uninstall GridMap from every device you control.</p>
+</div>
+<div class="warning-section">
+<h3>Data sources and accuracy</h3>
+<p>The app may reference publicly available Western Australian location and asset-related datasets and mapping context. Public availability does not mean the information is approved for operational use. Information may be incorrect, incomplete, outdated, duplicated, missing, estimated, or incorrectly mapped.</p>
+</div>
+<div class="warning-section warning-critical">
+<h3>Do not rely on this app for operational decisions</h3>
+<p>Do not use GridMap or Google Maps links as a source of truth for safety, switching, isolation, access, construction, design, asset verification, navigation, route selection, work planning, driving, vehicle/plant operation, or any operational decision.</p>
+</div>
+<p class="warning-final">GridMap is not approved, verified, or endorsed by any employer, network operator, data provider, mapping provider, or official system owner. Always verify information against approved internal systems, current work packs, official asset records, permits, procedures, and actual site conditions before any action or work is undertaken. Use of GridMap is entirely at your own risk.</p>
+<button class="warning-confirm-btn" id="warningConfirmBtn" type="button">I understand and agree</button>
+</div>
+</div>
+<main class="app-shell">
+<header class="topbar basic-topbar">
+<div class="brand-wrap basic-brand-wrap">
+<div class="brand-lockup">
+<img alt="" aria-hidden="true" class="brand-app-logo" src="logo.png?v=v2-5-85-gridmap"/>
+<h1>GridMap</h1>
+</div>
+</div>
+<div class="top-actions">
+<button class="ghost hidden" id="installBtn" type="button">Install</button>
+</div>
+<div aria-label="Quick menu" class="header-art-area basic-settings-area">
+<button aria-label="Settings" class="quick-menu-btn basic-settings-btn plain-settings-btn" id="quickMenuBtn" title="Settings" type="button">Settings</button>
+<div aria-label="Quick menu" class="quick-menu hidden" id="quickMenu">
+<button data-quick-action="main" type="button">Home</button>
+<button data-quick-action="settings" type="button">Settings</button>
+</div>
+</div>
+</header>
+<section aria-label="Settings" class="settings-page hidden" id="settingsPanel">
+<div class="settings-page-head">
+<div class="settings-title-wrap basic-settings-title-wrap"><div><h2>Settings</h2></div></div>
+<span class="pill ok" id="versionPill">GridMap v2.5.85</span>
+</div>
+<div aria-label="Settings sections" class="settings-page-nav settings-list-menu" role="list">
+<button class="settings-page-btn" data-settings-page-btn="results" type="button"><span>General</span><span aria-hidden="true" class="settings-arrow">›</span></button>
+<button class="settings-page-btn" data-settings-page-btn="import" type="button"><span>Import</span><span aria-hidden="true" class="settings-arrow">›</span></button>
+<button class="settings-page-btn" data-settings-page-btn="update" type="button"><span>Update</span><span aria-hidden="true" class="settings-arrow">›</span></button>
+<button class="settings-page-btn" data-settings-page-btn="developer" type="button"><span>Developer</span><span aria-hidden="true" class="settings-arrow">›</span></button>
+<button class="settings-page-btn settings-reset-btn" data-settings-page-btn="storage" type="button"><span>Reset</span><span aria-hidden="true" class="settings-arrow">›</span></button>
+</div>
+<div class="settings-built-note">Built and tested on Samsung mobile</div>
+<div class="settings-grid">
+<div class="setting-box settings-page-section active" data-settings-page="results">
+<button class="settings-section-back" data-settings-back="results" type="button">‹ Settings</button>
+<div class="setting-title">General</div>
+<div class="setting-subtitle results-displayed-label">Results displayed</div>
+<div aria-label="Results displayed" class="bones-limit-grid" role="group">
+<button aria-pressed="true" class="limit-btn active" data-result-limit="5" type="button">5</button>
+<button class="limit-btn" data-result-limit="10" type="button">10</button>
+<button class="limit-btn" data-result-limit="15" type="button">15</button>
+<button class="limit-btn" data-result-limit="25" type="button">25</button>
+<button class="limit-btn" data-result-limit="35" type="button">35</button>
+<button class="limit-btn" data-result-limit="50" type="button">50</button>
+<button class="limit-btn" data-result-limit="75" type="button">75</button>
+<button class="limit-btn" data-result-limit="100" type="button">100</button>
+</div>
+</div>
+<div class="setting-box settings-page-section" data-settings-page="import">
+<button class="settings-section-back" data-settings-back="import" type="button">‹ Settings</button>
+<div class="setting-title">Import</div>
+<label class="file-label">Choose files
+            <input accept=".json,.geojson,application/json,application/geo+json" id="localGeojson" multiple="" type="file"/>
+</label>
+<div class="pill" id="localCount">No imported data</div>
+<div class="imported-files" id="importedFiles"></div>
+<div class="button-row settings-buttons compact-top">
+<button class="secondary" id="deleteAllImportsBtn" type="button">Delete all files</button>
+</div>
+</div>
+<div class="setting-box settings-page-section" data-settings-page="update">
+<button class="settings-section-back" data-settings-back="update" type="button">‹ Settings</button>
+<div class="setting-title">Update</div>
+<div class="update-card">
+<div class="update-row">
+<span>Current version</span>
+<strong id="updateCurrentVersion">GridMap v2.5.85</strong>
+</div>
+<div class="update-row">
+<span>Latest version</span>
+<strong id="updateLatestVersion">Not checked yet</strong>
+</div>
+<div class="update-row">
+<span>Last check</span>
+<strong id="updateLastCheck">Not checked yet</strong>
+</div>
+</div>
+<label class="update-toggle">
+<input checked="" id="autoUpdateToggle" type="checkbox"/>
+<span>Auto-check for latest version on launch</span>
+</label>
+<div class="button-row settings-buttons update-buttons">
+<button class="secondary" id="checkUpdateBtn" type="button">Check for updates</button>
+<button id="reloadLatestBtn" type="button">Update now</button>
+</div>
+<div class="button-row settings-buttons update-buttons compact-top">
+<button class="secondary" id="clearUpdateCacheBtn" type="button">Clear old files</button>
+</div>
+<div class="update-status" id="updateStatus">Ready.</div>
+</div>
+<div class="setting-box settings-page-section" data-settings-page="developer">
+<button class="settings-section-back" data-settings-back="developer" type="button">‹ Settings</button>
+<div class="setting-title">Developer</div>
+<div class="developer-device-pill">Built and tested on Samsung mobile</div>
+<div class="developer-note">
+<p>Was a bit annoyed at current systems so thought I'd give my own a crack to see if it helps fill the holes in a bit of time wasting finding stuff on the go.</p>
+<p>I built and rebuilt this thing a few times and a few times more, the rabbit hole just gets deeper and deeper.... going for max features at a point and dropping back to just minimum features for now. Things seem to break easy over the slightest changes in the scripts and codes! Hopefully the app suits your mobile device and no issues. There are known issues with some of the data and code not being able to distinguish it's format but I've tried my best to isolate and flag it but refer to the warning you agreed to!</p>
+<p>I'm seeing how it goes and hopefully it can help others and improve the flow but if not, it's been a good experience trying!</p>
+<p><strong>Noots KXYK</strong></p>
+</div>
+<div class="developer-photo-wrap">
+<img alt="Border collie beside a little mug toy" class="developer-photo" loading="lazy" src="developer-dog.jpg?v=v2-5-85-gridmap"/>
+</div>
+<div class="setting-box settings-page-section" data-settings-page="storage">
+<button class="settings-section-back" data-settings-back="storage" type="button">‹ Settings</button>
+<div class="setting-title">Reset</div>
+<div class="button-row settings-buttons">
+<button class="secondary" id="clearAppCacheBtn" type="button">Clear cache</button>
+<button class="secondary" id="clearDataBtn" type="button">Reset data</button>
+<button class="danger" id="hardResetBtn" type="button">Hard reset</button>
+</div>
+<div class="update-status" id="storageStatus">Ready.</div>
+</div>
+</div>
+</section>
+<div aria-hidden="true" class="main-login-slot hidden-login-shell" id="mainLoginSlot">
+<section aria-label="Login" class="card login-panel hidden" id="loginPanel">
+<div class="split-title">
+<span id="loginTitle">Login</span>
+<span class="pill bad" id="loginState">Login required</span>
+</div>
+<p class="hint" id="loginHint">Enter details once and create a PIN. After that, use the PIN when needed.</p>
+<div class="pin-panel hidden" id="pinLoginFields">
+<label>PIN
+          <input autocomplete="off" enterkeyhint="done" id="pinCode" inputmode="numeric" maxlength="12" pattern="[0-9]*" placeholder="PIN" type="password"/>
+</label>
+</div>
+<div class="grid" id="fullLoginFields">
+<label>User ID
+          <input autocomplete="username" id="loginUser" placeholder="User ID" type="email"/>
+</label>
+<label>Password
+          <input autocomplete="current-password" id="loginPass" placeholder="Password" type="password"/>
+</label>
+<label>Create PIN
+          <input autocomplete="off" enterkeyhint="done" id="newPin" inputmode="numeric" maxlength="12" pattern="[0-9]*" placeholder="PIN" type="password"/>
+</label>
+</div>
+<div class="button-row">
+<button id="loginBtn" type="button">Login now</button>
+<button class="secondary hidden" id="switchLoginBtn" type="button">Use full login</button>
+<button class="secondary" disabled="" id="logoutBtn" type="button">Clear saved login</button>
+</div>
+</section>
+</div>
+<section aria-label="Search assets" class="card search-card" id="searchPanel">
+<div class="search-row">
+<input autocapitalize="characters" autocomplete="off" id="searchInput" placeholder="Type here..." spellcheck="false"/>
+<button id="searchBtn" type="button">Search</button>
+</div>
+<div aria-hidden="true" aria-live="polite" class="search-inline-loader hidden" id="searchInlineLoader" role="status"></div>
+</section>
+<section class="results-info hidden" id="resultsInfo"></section>
+<section aria-live="polite" class="results" id="results"></section>
+<section aria-label="Circuit map" class="circuit-map-panel hidden" id="circuitMapPanel">
+<div class="circuit-map-head">
+<div>
+<div class="circuit-map-title" id="circuitMapTitle">Circuit</div>
+<div class="circuit-map-sub hidden" id="circuitMapSub"></div>
+</div>
+<div class="map-head-actions">
+<button class="secondary map-fullscreen-btn" id="mapFullscreenBtn" type="button">Full screen</button>
+<button class="secondary map-close-btn" id="circuitMapCloseBtn" type="button">Return</button>
+</div>
+</div>
+<div class="circuit-map-canvas" id="circuitMapCanvas"></div>
+<div class="asset-popup hidden" id="assetPopup"></div>
+<div aria-live="polite" class="whats-here-panel hidden" id="whatsHerePanel"></div>
+<div aria-label="Fullscreen map controls" class="full-map-controls hidden" id="fullMapControls">
+<button class="full-map-exit-btn" id="mapExitFullscreenBtn" type="button">Exit full screen</button>
+<button class="full-map-text-btn" id="whatsHereBtn" type="button">Proximity check</button>
+<div class="full-map-control-group">
+<button aria-label="Map layers" class="full-map-icon-btn" id="mapLayerBtn" type="button">
+<svg aria-hidden="true" focusable="false" viewbox="0 0 24 24">
+<path d="M12 3 3 8l9 5 9-5-9-5Z"></path>
+<path d="M3 12l9 5 9-5"></path>
+<path d="M3 16l9 5 9-5"></path>
+</svg>
+</button>
+<div class="full-map-layer-menu hidden" id="mapLayerMenu">
+<button data-layer-choice="street" type="button">Street</button>
+<button data-layer-choice="satellite" type="button">Satellite</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script defer="" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="config/app-config.js?v=v2-5-85-gridmap"></script>
+<script src="app.js?v=v2-5-85-gridmap"></script>
+<script src="modules/scroll-unlock.js?v=v2-5-85-gridmap"></script>
+</body>
+</html>
