@@ -21,10 +21,10 @@
     const WARNING_ACCEPT_KEY = 'dogbones-warning-accepted-v255';
     const WARNING_STATE_KEY = 'gridmap-warning-state-v274';
     const WARNING_MAX_DAILY_SHOWS_AFTER_INITIAL = 2;
-    const APP_VERSION = String(MYMATE_CONFIG.version || '2.5.85');
+    const APP_VERSION = String(MYMATE_CONFIG.version || '2.5.87');
     const APP_VERSION_LABEL = String(MYMATE_CONFIG.label || `GridMap v${APP_VERSION}`);
-    const APP_CACHE_NAME = String(MYMATE_CONFIG.cacheName || 'gridmap-public-v2-5-85');
-    const APP_ASSET_VERSION = String(MYMATE_CONFIG.assetVersion || 'v2-5-85-gridmap');
+    const APP_CACHE_NAME = String(MYMATE_CONFIG.cacheName || 'gridmap-public-v2-5-87');
+    const APP_ASSET_VERSION = String(MYMATE_CONFIG.assetVersion || 'v2-5-87-gridmap');
     const DATA_SCHEMA_VERSION = Number(MYMATE_CONFIG.dataSchemaVersion || 47);
     const RELEASE_INFO_URL = String(MYMATE_CONFIG.releaseInfoUrl || 'version.json');
     const LOCAL_RELEASE_INFO = Object.freeze({

@@ -121,7 +121,7 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(38,70,56,.14)}
 @media (min-width:700px){.brand-app-logo{width:142px}}
 .settings-detail-open .settings-built-note{display:none}
 
-/* GridMap v2.5.85 compact top-left header */
+/* GridMap v2.5.87 compact top-left header */
 .topbar.basic-topbar{
   position:relative;
   display:grid;
@@ -190,13 +190,13 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(38,70,56,.14)}
 }
 
 
-/* GridMap v2.5.85 developer photo */
+/* GridMap v2.5.87 developer photo */
 .developer-photo-wrap{display:flex;justify-content:center;align-items:center;margin-top:12px}
 .developer-photo{display:block;width:min(100%,280px);height:auto;border-radius:16px;border:1px solid var(--line);background:#fff;box-shadow:0 8px 20px rgba(28,45,35,.10);object-fit:cover}
 @media (max-width:360px){.developer-photo{width:min(100%,240px);border-radius:14px}}
 
 
-/* GridMap v2.5.85 larger brand lockup */
+/* GridMap v2.5.87 larger brand lockup */
 .topbar.basic-topbar{
   grid-template-columns:minmax(0,1fr) auto;
   align-items:center;
@@ -250,7 +250,7 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(38,70,56,.14)}
 }
 
 
-/* GridMap v2.5.85 bigger main-page/header icon */
+/* GridMap v2.5.87 bigger main-page/header icon */
 .topbar.basic-topbar{
   align-items:center;
   gap:8px;
@@ -290,7 +290,7 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(38,70,56,.14)}
 }
 
 
-/* GridMap v2.5.85 larger main-page/header icon */
+/* GridMap v2.5.87 larger main-page/header icon */
 .topbar.basic-topbar{
   grid-template-columns:minmax(0,1fr) auto;
   align-items:center;

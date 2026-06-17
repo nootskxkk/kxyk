@@ -1,5 +1,5 @@
-const CACHE = 'gridmap-public-v2-5-85';
-const ASSET_VERSION = 'v2-5-85-gridmap';
+const CACHE = 'gridmap-public-v2-5-87';
+const ASSET_VERSION = 'v2-5-87-gridmap';
 const LEGACY_CACHE_RE = /^(gridmap-|pathfinder-|search-assets-|lookup-|mymate-|dogbones-)/i;
 const APP_SHELL = [
   './',
@@ -16,6 +16,8 @@ const APP_SHELL = [
   './logo.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  './icons/maskable-192.png',
+  './icons/maskable-512.png',
   './icons/apple-touch-icon.png',
   './developer-dog.jpg'
 ];
@@ -46,7 +48,7 @@ function isAppShellRequest(url, req) {
     /\/config\/app-config\.js$/.test(url.pathname) ||
     /\/modules\/scroll-unlock\.js$/.test(url.pathname) ||
     /\/(favicon-16\.png|favicon-32\.png|logo\.png)$/.test(url.pathname) ||
-    /\/icons\/(icon-192\.png|icon-512\.png|apple-touch-icon\.png)$/.test(url.pathname);
+    /\/icons\/(icon-192\.png|icon-512\.png|maskable-192\.png|maskable-512\.png|apple-touch-icon\.png)$/.test(url.pathname);
 }
 
 function networkFirst(req) {

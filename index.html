@@ -12,9 +12,9 @@
 <title>GridMap</title>
 <script>
     (function () {
-      window.__MYMATE_STARTUP_FIX = '2.5.85-gridmap';
+      window.__MYMATE_STARTUP_FIX = '2.5.87-gridmap';
       try {
-        var cleanKey = 'gridmap-cache-clean-v2-5-85';
+        var cleanKey = 'gridmap-cache-clean-v2-5-87';
         var alreadyCleaned = false;
         try { alreadyCleaned = localStorage.getItem(cleanKey) === '1'; } catch (e) {}
         if (!alreadyCleaned && 'caches' in window) {
@@ -32,13 +32,13 @@
       } catch (e) {}
     }());
   </script>
-<link href="manifest.webmanifest?v=v2-5-85-gridmap" rel="manifest"/>
-<link as="fetch" crossorigin="anonymous" href="version.json?v=v2-5-85-gridmap" rel="preload" type="application/json"/>
+<link href="manifest.webmanifest?v=v2-5-87-gridmap" rel="manifest"/>
+<link as="fetch" crossorigin="anonymous" href="version.json?v=v2-5-87-gridmap" rel="preload" type="application/json"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
 <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
-<link href="styles.css?v=v2-5-85-gridmap" rel="stylesheet"/>
+<link href="styles.css?v=v2-5-87-gridmap" rel="stylesheet"/>
 </head>
 <body>
 <div aria-live="polite" class="splash-screen opening" id="splashScreen" role="status">
@@ -73,7 +73,7 @@
 <header class="topbar basic-topbar">
 <div class="brand-wrap basic-brand-wrap">
 <div class="brand-lockup">
-<img alt="" aria-hidden="true" class="brand-app-logo" src="logo.png?v=v2-5-85-gridmap"/>
+<img alt="" aria-hidden="true" class="brand-app-logo" src="logo.png?v=v2-5-87-gridmap"/>
 <h1>GridMap</h1>
 </div>
 </div>
@@ -91,7 +91,7 @@
 <section aria-label="Settings" class="settings-page hidden" id="settingsPanel">
 <div class="settings-page-head">
 <div class="settings-title-wrap basic-settings-title-wrap"><div><h2>Settings</h2></div></div>
-<span class="pill ok" id="versionPill">GridMap v2.5.85</span>
+<span class="pill ok" id="versionPill">GridMap v2.5.87</span>
 </div>
 <div aria-label="Settings sections" class="settings-page-nav settings-list-menu" role="list">
 <button class="settings-page-btn" data-settings-page-btn="results" type="button"><span>General</span><span aria-hidden="true" class="settings-arrow">›</span></button>
@@ -135,7 +135,7 @@
 <div class="update-card">
 <div class="update-row">
 <span>Current version</span>
-<strong id="updateCurrentVersion">GridMap v2.5.85</strong>
+<strong id="updateCurrentVersion">GridMap v2.5.87</strong>
 </div>
 <div class="update-row">
 <span>Latest version</span>
@@ -170,7 +170,8 @@
 <p><strong>Noots KXYK</strong></p>
 </div>
 <div class="developer-photo-wrap">
-<img alt="Border collie beside a little mug toy" class="developer-photo" loading="lazy" src="developer-dog.jpg?v=v2-5-85-gridmap"/>
+<img alt="Border collie beside a little mug toy" class="developer-photo" loading="lazy" src="developer-dog.jpg?v=v2-5-87-gridmap"/>
+</div>
 </div>
 <div class="setting-box settings-page-section" data-settings-page="storage">
 <button class="settings-section-back" data-settings-back="storage" type="button">‹ Settings</button>
@@ -181,7 +182,6 @@
 <button class="danger" id="hardResetBtn" type="button">Hard reset</button>
 </div>
 <div class="update-status" id="storageStatus">Ready.</div>
-</div>
 </div>
 </section>
 <div aria-hidden="true" class="main-login-slot hidden-login-shell" id="mainLoginSlot">
@@ -257,8 +257,8 @@
 </section>
 </main>
 <script defer="" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="config/app-config.js?v=v2-5-85-gridmap"></script>
-<script src="app.js?v=v2-5-85-gridmap"></script>
-<script src="modules/scroll-unlock.js?v=v2-5-85-gridmap"></script>
+<script src="config/app-config.js?v=v2-5-87-gridmap"></script>
+<script src="app.js?v=v2-5-87-gridmap"></script>
+<script src="modules/scroll-unlock.js?v=v2-5-87-gridmap"></script>
 </body>
 </html>
